@@ -134,7 +134,7 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   //Slider
-  let offset = 0;
+   let offset = 0;
     let slideIndex = 1;
 
     const slides = document.querySelectorAll('.offer__slide'),
@@ -181,7 +181,7 @@ window.addEventListener("DOMContentLoaded", function () {
         margin-right: 15%;
         margin-left: 15%;
         list-style: none;
-    `; // Если хотите - добавьте в стили, но иногда у нас нет доступа к стилям
+    `; 
     slider.append(indicators);
 
     for (let i = 0; i < slides.length; i++) {
@@ -210,10 +210,10 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
     next.addEventListener('click', () => {
-        if (offset == (deleteNotDigits(width) * (slides.length - 1))) {
+        if (offset == (+width.slice(0, width.length - 2) * (slides.length - 1))) {
             offset = 0;
         } else {
-            offset += deleteNotDigits(width); 
+            offset += +width.slice(0, width.length - 2); 
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
@@ -236,9 +236,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
     prev.addEventListener('click', () => {
         if (offset == 0) {
-            offset = deleteNotDigits(width) * (slides.length - 1);
+            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
         } else {
-            offset -= deleteNotDigits(width);
+            offset -= +width.slice(0, width.length - 2);
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
@@ -264,7 +264,7 @@ window.addEventListener("DOMContentLoaded", function () {
             const slideTo = e.target.getAttribute('data-slide-to');
 
             slideIndex = slideTo;
-            offset = deleteNotDigits(width) * (slideTo - 1);
+            offset = +width.slice(0, width.length - 2) * (slideTo - 1);
 
             slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -277,6 +277,8 @@ window.addEventListener("DOMContentLoaded", function () {
             dots.forEach(dot => dot.style.opacity = ".5");
             dots[slideIndex-1].style.opacity = 1;
         });
+    });
+
     });
 
     function deleteNotDigits(str) {
